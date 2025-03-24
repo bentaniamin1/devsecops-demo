@@ -88,3 +88,10 @@ yarn build
 
 The build artifacts will be stored in the `dist/` directory.
 
+
+
+## Build image 
+
+docker buildx build -t devsecops-demo .
+
+docker run -d -p 8080:80 devsecops-demo
