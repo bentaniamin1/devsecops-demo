@@ -95,3 +95,35 @@ The build artifacts will be stored in the `dist/` directory.
 docker buildx build -t devsecops-demo .
 
 docker run -d -p 8080:80 devsecops-demo
+
+
+## Argo cd on Kubernetes
+
+
+kubectl create namespace argocd
+
+helm repo add argo https://argoproj.github.io/argo-helm
+helm install argocd argo/argo-cd -n argocd
+
+kubectl get pods -n argocd
+
+
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+
+
+
+## To pull image from ghcr.io, we need create secret in kubernetes
+kubectl create secret docker-registry github-container-registry \
+  --docker-server=ghcr.io \
+  --docker-username=YOUR_GITHUB_USERNAME \
+  --docker-password=YOUR_GITHUB_TOKEN \
+  --docker-email=YOUR_EMAIL
+
+
+![Config Argo-CD deployment](image-2.png)
+
+  ![Argo-CD ](image.png)
+  ![Check pods application on kubernetes after CD](image-1.png)
+  ![Kubernetes get pods and svc ](image-5.png)
+  ![Port forward pod](image-4.png)
+  ![Application in pods](image-3.png)
