@@ -208,7 +208,7 @@ jobs:
   rollback-update-k8s:
     name: Rollback Kubernetes Deployment
     runs-on: ubuntu-latest
-    needs: [docker]
+    needs: [update-k8s]
     if: faillure() && github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - name: Checkout code
